@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>トラウマインフォームドケア ─ 就労移行支援スタッフのための実践ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a2540;
+  --ink-soft: #3a4660;
+  --ink-faint: #6a7488;
+  --paper: #faf6f0;
+  --paper-card: #ffffff;
+  --paper-warm: #f3ebde;
+  --terracotta: #c97b63;
+  --terracotta-deep: #a85a44;
+  --sage: #7a8b6e;
+  --sage-deep: #56684a;
+  --gold: #c9a253;
+  --rule: #d9cdb8;
+  --shadow: 0 1px 2px rgba(26,37,64,.04), 0 12px 32px -8px rgba(26,37,64,.08);
+  --shadow-lg: 0 4px 8px rgba(26,37,64,.06), 0 24px 56px -12px rgba(26,37,64,.14);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.85;
+  font-weight: 400;
+  font-feature-settings: "palt";
+  -webkit-font-smoothing: antialiased;
+}
+
+.serif { font-family: 'Noto Serif JP', serif; }
+
+/* ============ Progress bar ============ */
+.progress-track {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 3px; background: transparent; z-index: 100;
+}
+.progress-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--terracotta), var(--gold));
+  transition: width .1s linear;
+}
+
+/* ============ Sticky nav ============ */
+.topnav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(250,246,240,.92);
+  backdrop-filter: saturate(140%) blur(8px);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.topnav-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 14px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700; font-size: 15px; letter-spacing: .05em;
+  color: var(--ink);
+  display: flex; align-items: center; gap: 10px;
+}
+.brand-mark { width: 22px; height: 22px; flex-shrink: 0; }
+.nav-links {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--ink-soft);
+}
+.nav-links a {
+  color: var(--ink-soft); text-decoration: none;
+  padding: 4px 0; border-bottom: 1px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.nav-links a:hover { color: var(--terracotta); border-bottom-color: var(--terracotta); }
+@media (max-width: 820px) { .nav-links { display: none; } }
+
+/* ============ Layout ============ */
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+.container-wide {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+section { padding: 100px 0; position: relative; }
+
+/* ============ Hero ============ */
+.hero {
+  padding: 80px 0 100px;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: ""; position: absolute;
+  top: -120px; right: -100px;
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(201,123,99,.12), transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: ""; position: absolute;
+  bottom: -180px; left: -120px;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(122,139,110,.10), transparent 70%);
+  pointer-events: none;
+}
+.kicker {
+  font-size: 12px; letter-spacing: .25em; font-weight: 600;
+  color: var(--terracotta);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.kicker::before {
+  content: ""; width: 28px; height: 1px; background: var(--terracotta);
+}
+.hero-title {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: clamp(34px, 5.4vw, 56px);
+  line-height: 1.28;
+  letter-spacing: -.005em;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+.hero-title .accent { color: var(--terracotta-deep); font-weight: 900; }
+.hero-lede {
+  font-size: 17px;
+  color: var(--ink-soft);
+  line-height: 1.95;
+  max-width: 680px;
+  margin-bottom: 40px;
+}
+.hero-meta {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--ink-faint);
+  letter-spacing: .05em;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+  max-width: 680px;
+}
+.hero-meta-item { display: flex; align-items: center; gap: 8px; }
+
+/* ============ Section heading ============ */
+.section-label {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 13px; letter-spacing: .3em; font-weight: 500;
+  color: var(--terracotta);
+  margin-bottom: 16px;
+}
+.section-num {
+  font-family: 'Noto Serif JP', serif;
+  font-style: italic; font-weight: 400;
+  color: var(--gold);
+  margin-right: 14px;
+}
+.section-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(28px, 3.8vw, 38px);
+  font-weight: 700;
+  line-height: 1.42;
+  color: var(--ink);
+  margin-bottom: 22px;
+  letter-spacing: -.005em;
+}
+.section-deck {
+  font-size: 16.5px;
+  color: var(--ink-soft);
+  line-height: 1.95;
+  margin-bottom: 48px;
+  max-width: 700px;
+}
+
+/* ============ Prose ============ */
+.prose p {
+  font-size: 16px;
+  line-height: 1.95;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+.prose strong {
+  color: var(--ink);
+  font-weight: 700;
+  background: linear-gradient(transparent 64%, rgba(201,123,99,.16) 64%);
+  padding: 0 2px;
+}
+
+/* ============ Cards ============ */
+.card {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 32px 34px;
+  margin: 30px 0;
+  box-shadow: var(--shadow);
+}
+.card-quiet {
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--terracotta);
+  padding: 28px 30px;
+  border-radius: 2px;
+  margin: 28px 0;
+}
+.card-quiet .card-label {
+  font-size: 11px; letter-spacing: .25em; font-weight: 700;
+  color: var(--terracotta-deep);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.card-warning {
+  background: #fdf4ef;
+  border: 1px solid #e8c9b8;
+  border-left: 3px solid var(--terracotta-deep);
+  padding: 24px 28px;
+  border-radius: 2px;
+  margin: 24px 0;
+}
+.card-warning .card-label {
+  font-size: 11px; letter-spacing: .2em; font-weight: 700;
+  color: var(--terracotta-deep);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ============ Opening vignette ============ */
+.vignette {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 44px 48px;
+  border-radius: 4px;
+  position: relative;
+  margin: 50px 0;
+  box-shadow: var(--shadow);
+}
+.vignette::before {
+  content: """;
+  position: absolute;
+  top: -10px; left: 24px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 88px; line-height: 1;
+  color: var(--terracotta);
+  font-weight: 900;
+}
+.vignette-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 17px;
+  line-height: 2.1;
+  color: var(--ink);
+  font-weight: 400;
+}
+.vignette-text em { color: var(--terracotta-deep); font-style: normal; font-weight: 600; }
+.vignette-attrib {
+  font-size: 13px; color: var(--ink-faint);
+  margin-top: 22px; padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  letter-spacing: .05em;
+}
+
+/* ============ 3E diagram ============ */
+.three-e {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 40px 0;
+}
+@media (max-width: 720px) { .three-e { grid-template-columns: 1fr; } }
+.e-box {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 30px 26px;
+  border-radius: 4px;
+  position: relative;
+  text-align: left;
+  box-shadow: var(--shadow);
+  transition: transform .3s, box-shadow .3s;
+}
+.e-box:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.e-letter {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 56px; font-weight: 900;
+  color: var(--terracotta);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.e-word {
+  font-size: 12px; letter-spacing: .2em;
+  color: var(--ink-faint);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.e-jp {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 19px; font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.e-desc {
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+/* ============ Stat block ============ */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 40px 0;
+}
+@media (max-width: 720px) { .stat-row { grid-template-columns: 1fr; } }
+.stat {
+  border-top: 2px solid var(--ink);
+  padding-top: 16px;
+}
+.stat-num {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 44px; font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-num .pct { font-size: 26px; color: var(--terracotta); margin-left: 2px; }
+.stat-label {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.stat-source {
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* ============ Window of Tolerance ============ */
+.wot {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 40px 36px;
+  margin: 40px 0;
+  box-shadow: var(--shadow);
+}
+.wot-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px; font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.wot-sub {
+  text-align: center;
+  font-size: 13px; color: var(--ink-faint);
+  margin-bottom: 36px;
+  font-style: italic;
+}
+.wot-zone {
+  padding: 20px 24px;
+  margin: 12px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  border: 1px solid transparent;
+}
+.wot-zone:hover { transform: translateX(4px); }
+.wot-zone.hyper {
+  background: linear-gradient(135deg, #fdeae0, #f8d4c0);
+  border-color: #e8c0a3;
+}
+.wot-zone.window {
+  background: linear-gradient(135deg, #e8efe2, #d6e2cc);
+  border-color: #b6c8a5;
+  margin: 14px 0;
+  padding: 28px 24px;
+}
+.wot-zone.hypo {
+  background: linear-gradient(135deg, #e0e5ec, #c8d0db);
+  border-color: #a8b3c2;
+}
+.wot-zone-label {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700; font-size: 15px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.wot-zone-label .arrow { font-size: 18px; color: var(--ink-soft); }
+.wot-zone-label .arrow.active { color: var(--terracotta); transform: rotate(90deg); }
+.wot-zone-desc {
+  font-size: 14px; line-height: 1.85;
+  color: var(--ink-soft);
+  margin-bottom: 0;
+}
+.wot-detail {
+  max-height: 0; overflow: hidden;
+  transition: max-height .4s ease;
+}
+.wot-detail-inner {
+  padding-top: 14px;
+  margin-top: 14px;
+  border-top: 1px dashed rgba(26,37,64,.2);
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: var(--ink);
+}
+.wot-zone.open .wot-detail { max-height: 300px; }
+.wot-zone.open .wot-zone-label .arrow { transform: rotate(45deg); color: var(--terracotta); }
+
+/* ============ Paradigm shift ============ */
+.shift {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin: 40px 0;
+}
+@media (max-width: 720px) {
+  .shift { grid-template-columns: 1fr; }
+  .shift-arrow { transform: rotate(90deg); margin: 8px auto; }
+}
+.shift-side {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 32px 28px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.shift-side.before { background: #f5ecdf; border-color: #d9c4a2; }
+.shift-side.after { background: #e8efe2; border-color: #b6c8a5; }
+.shift-label {
+  font-size: 11px; letter-spacing: .25em; font-weight: 700;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.shift-q {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 21px; font-weight: 700;
+  color: var(--ink);
+  line-height: 1.55;
+}
+.shift-side.before .shift-q { text-decoration: line-through; text-decoration-color: rgba(26,37,64,.3); }
+.shift-side.after .shift-q { color: var(--sage-deep); }
+.shift-arrow {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 32px;
+  color: var(--terracotta);
+  font-weight: 300;
+}
+
+/* ============ 4 Rs ============ */
+.four-r {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 40px 0;
+}
+@media (max-width: 820px) { .four-r { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .four-r { grid-template-columns: 1fr; } }
+.r-box {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 24px 20px;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+.r-letter {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 38px; font-weight: 900;
+  color: var(--terracotta);
+  line-height: 1;
+}
+.r-en {
+  font-size: 12px; letter-spacing: .12em;
+  color: var(--ink-faint);
+  margin: 6px 0 14px;
+  font-weight: 600;
+}
+.r-jp {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.r-desc {
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+/* ============ 6 principles accordion ============ */
+.principles { margin: 40px 0; }
+.principle {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: box-shadow .25s;
+}
+.principle.open { box-shadow: var(--shadow-lg); }
+.principle-header {
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .2s;
+}
+.principle-header:hover { background: var(--paper-warm); }
+.principle-num {
+  font-family: 'Noto Serif JP', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 26px;
+  color: var(--gold);
+  min-width: 36px;
+}
+.principle-title-block { flex: 1; }
+.principle-jp {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.principle-en {
+  font-size: 11.5px; letter-spacing: .1em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.principle-toggle {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--rule); border-radius: 50%;
+  font-size: 16px; color: var(--ink-soft);
+  transition: transform .3s, background .2s, color .2s;
+}
+.principle.open .principle-toggle {
+  transform: rotate(45deg);
+  background: var(--terracotta); color: white; border-color: var(--terracotta);
+}
+.principle-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height .45s ease;
+}
+.principle-body-inner {
+  padding: 0 26px 28px 82px;
+}
+.principle.open .principle-body { max-height: 600px; }
+.principle-core {
+  font-size: 14.5px;
+  line-height: 1.95;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--rule);
+  padding-top: 18px;
+}
+.principle-practice {
+  background: var(--paper-warm);
+  border-left: 2px solid var(--sage);
+  padding: 16px 20px;
+  border-radius: 0 4px 4px 0;
+}
+.principle-practice-label {
+  font-size: 11px; letter-spacing: .2em; font-weight: 700;
+  color: var(--sage-deep);
+  margin-bottom: 8px;
+}
+.principle-practice-text {
+  font-size: 13.5px; line-height: 1.85;
+  color: var(--ink);
+}
+
+/* ============ Comparison table ============ */
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 40px 0;
+}
+@media (max-width: 720px) { .compare { grid-template-columns: 1fr; } }
+.compare-col {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 28px;
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+}
+.compare-col.do { border-top: 3px solid var(--sage); }
+.compare-col.dont { border-top: 3px solid var(--terracotta-deep); }
+.compare-head {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 17px; font-weight: 700;
+  margin-bottom: 4px;
+  display: flex; align-items: center; gap: 10px;
+}
+.compare-col.do .compare-head { color: var(--sage-deep); }
+.compare-col.dont .compare-head { color: var(--terracotta-deep); }
+.compare-sub {
+  font-size: 12px; color: var(--ink-faint);
+  margin-bottom: 20px;
+  letter-spacing: .05em;
+}
+.compare-list { list-style: none; padding: 0; }
+.compare-list li {
+  font-size: 14px; line-height: 1.85;
+  color: var(--ink-soft);
+  padding: 10px 0 10px 22px;
+  border-bottom: 1px dashed var(--rule);
+  position: relative;
+}
+.compare-list li:last-child { border-bottom: none; }
+.compare-list li::before {
+  position: absolute; left: 0; top: 14px;
+  width: 12px; height: 1px;
+  content: "";
+}
+.compare-col.do .compare-list li::before { background: var(--sage); }
+.compare-col.dont .compare-list li::before { background: var(--terracotta-deep); }
+
+/* ============ Scenario cards ============ */
+.scenarios { margin: 40px 0; }
+.scenario {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.scenario-q {
+  padding: 22px 28px;
+  background: var(--paper-warm);
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.scenario-q-num {
+  font-family: 'Noto Serif JP', serif;
+  font-style: italic;
+  color: var(--terracotta);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  min-width: 30px;
+}
+.scenario-q-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.scenario-a {
+  padding: 26px 28px 26px 74px;
+}
+.scenario-a-label {
+  font-size: 11px; letter-spacing: .2em; font-weight: 700;
+  color: var(--sage-deep);
+  margin-bottom: 12px;
+}
+.scenario-a-text {
+  font-size: 14.5px; line-height: 1.95;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.scenario-a-text:last-child { margin-bottom: 0; }
+.scenario-a-text strong {
+  color: var(--ink); font-weight: 700;
+  background: linear-gradient(transparent 64%, rgba(122,139,110,.2) 64%);
+  padding: 0 2px;
+}
+
+/* ============ Critique callouts ============ */
+.critique-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin: 40px 0;
+}
+@media (max-width: 720px) { .critique-grid { grid-template-columns: 1fr; } }
+.critique {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--gold);
+  padding: 24px 26px;
+  border-radius: 0 4px 4px 0;
+  box-shadow: var(--shadow);
+}
+.critique-num {
+  font-family: 'Noto Serif JP', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 13px; font-weight: 500;
+  letter-spacing: .15em;
+  margin-bottom: 8px;
+}
+.critique-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.critique-text {
+  font-size: 13.5px; line-height: 1.9;
+  color: var(--ink-soft);
+}
+.critique-source {
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ============ Pull quote ============ */
+.pullquote {
+  margin: 60px 0;
+  padding: 40px 24px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+.pullquote-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(20px, 2.6vw, 26px);
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 640px;
+  margin: 0 auto;
+}
+.pullquote-attrib {
+  font-size: 12px; color: var(--ink-faint);
+  margin-top: 18px;
+  letter-spacing: .1em;
+}
+
+/* ============ References ============ */
+.refs {
+  background: var(--paper-warm);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 80px 0;
+  margin-top: 60px;
+}
+.refs-list {
+  list-style: none;
+  counter-reset: ref;
+}
+.refs-list li {
+  counter-increment: ref;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  padding: 16px 0 16px 44px;
+  border-bottom: 1px dashed var(--rule);
+  position: relative;
+}
+.refs-list li::before {
+  content: counter(ref, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 16px;
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--terracotta);
+  letter-spacing: .05em;
+}
+.refs-list a {
+  color: var(--terracotta-deep);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(168,90,68,.3);
+  transition: border-color .2s;
+  word-break: break-all;
+}
+.refs-list a:hover { border-bottom-color: var(--terracotta-deep); }
+.refs-list .ref-title { color: var(--ink); font-weight: 600; }
+.refs-list .ref-meta { font-style: italic; color: var(--ink-faint); font-size: 12.5px; }
+
+/* ============ Footer ============ */
+.footer {
+  padding: 60px 0 80px;
+  text-align: center;
+  color: var(--ink-faint);
+}
+.footer-mark {
+  width: 32px; height: 32px;
+  margin: 0 auto 20px;
+}
+.footer-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: .15em;
+}
+
+/* ============ Reveal animations ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ============ Decorative rule ============ */
+.deco-rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 40px 0;
+}
+.deco-rule::before, .deco-rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+.deco-rule-mark {
+  width: 6px; height: 6px;
+  background: var(--terracotta);
+  border-radius: 50%;
+}
+
+/* Small inline helpers */
+.term {
+  background: rgba(122,139,110,.13);
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-size: .94em;
+  color: var(--sage-deep);
+  font-weight: 500;
+}
+.cite-sup {
+  font-size: 10px;
+  color: var(--terracotta-deep);
+  vertical-align: super;
+  margin-left: 2px;
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 2 L4 7 L4 13 C4 18 8 21 12 22 C16 21 20 18 20 13 L20 7 Z"/>
+        <path d="M12 8 L12 14 M9 11 L15 11" stroke-width="1.2"/>
+      </svg>
+      <span>Trauma-Informed Care</span>
+    </div>
+    <div class="nav-links">
+      <a href="#why">なぜ今</a>
+      <a href="#what">トラウマとは</a>
+      <a href="#body">身体への影響</a>
+      <a href="#shift">パラダイム</a>
+      <a href="#principles">6つの原則</a>
+      <a href="#boundary">境界線</a>
+      <a href="#field">現場で</a>
+      <a href="#critique">批判的検討</a>
+      <a href="#refs">参考文献</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="kicker">就労移行支援スタッフのための実践ガイド</div>
+    <h1 class="hero-title serif">
+      「困った利用者」は<br>いない。<br>
+      <span class="accent">困っている人</span>がいる。
+    </h1>
+    <p class="hero-lede">
+      トラウマインフォームドケア（TIC）は、特別な治療技法ではありません。
+      利用者の行動を「問題行動」としてではなく、過去の経験への適応として理解し、
+      支援の場そのものを再傷つきにくい環境に変えていく <strong>組織全体の姿勢</strong> です。
+      この資料は、TICの本質的な仕組みと限界を、現場のスタッフが5分で理解できるよう構成しました。
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        所要時間 約12分
+      </div>
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        全12セクション
+      </div>
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        SAMHSA枠組み準拠
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 01: なぜ ============ -->
+<section id="why" class="reveal">
+  <div class="container">
+    <div class="section-label"><span class="section-num">i</span>なぜTICが必要か</div>
+    <h2 class="section-title serif">現場で起きていることへの、ひとつの仮説</h2>
+    <p class="section-deck">
+      毎日のように、私たちは「なぜ？」と思う出来事に出会います。
+      その「なぜ？」に対して、TICはひとつの仮説の立て方を提供します。
+    </p>
+
+    <div class="vignette">
+      <div class="vignette-text serif">
+        Aさんは半年通っていた。先週、急な予定変更があった。スタッフは丁寧に説明した。
+        翌日からAさんは来なくなった。連絡もつかない。
+        スタッフ会議で誰かが言う ──「<em>急にどうしたんでしょうね</em>」。<br><br>
+        ここで、もうひとつ別の問いを立ててみる。<br>
+        「<em>あの予定変更は、Aさんにとって何を意味したのだろう</em>」。
+      </div>
+      <div class="vignette-attrib">── 現場で交わされる典型的な会話</div>
+    </div>
+
+    <div class="prose">
+      <p>
+        TICは魔法の技法ではありません。しかし、上記のような場面で
+        <strong>「何が悪かったのか」ではなく「何が起こったのか」</strong>を問う姿勢を
+        個人ではなく <span class="term">組織全体</span> に組み込もうとする試みです。
+        この姿勢の転換が、支援の質と継続性を変えていきます。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02: トラウマとは ============ -->
+<section id="what" class="reveal" style="background: var(--paper-warm);">
+  <div class="container">
+    <div class="section-label"><span class="section-num">02</span>定義</div>
+    <h2 class="section-title serif">トラウマは「特別な人の特別な経験」ではない</h2>
+    <p class="section-deck">
+      米国SAMHSA（薬物乱用・精神保健サービス局）は2014年、トラウマを <strong>3つのE</strong> で定義しました<sup class="cite-sup">[1]</sup>。
+      この定義は、トラウマを「診断名」ではなく <span class="term">経験のプロセス</span> として捉え直しています。
+    </p>
+
+    <div class="three-e">
+      <div class="e-box">
+        <div class="e-letter serif">E</div>
+        <div class="e-word">Event</div>
+        <div class="e-jp serif">出来事</div>
+        <div class="e-desc">
+          身体的・情緒的に有害な、または生命を脅かす出来事や状況。
+          一度きりとは限らず、慢性的・累積的なものを含む。
+        </div>
+      </div>
+      <div class="e-box">
+        <div class="e-letter serif">E</div>
+        <div class="e-word">Experience</div>
+        <div class="e-jp serif">体験</div>
+        <div class="e-desc">
+          同じ出来事でも、人によって体験のされ方は異なる。
+          年齢・支援の有無・文化的背景・以前のトラウマ歴が影響する。
+        </div>
+      </div>
+      <div class="e-box">
+        <div class="e-letter serif">E</div>
+        <div class="e-word">Effect</div>
+        <div class="e-jp serif">影響</div>
+        <div class="e-desc">
+          身体的・心理的・社会的・スピリチュアルな機能に
+          長期的に及ぶ悪影響。出来事から何年も経って現れることもある。
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        重要なのは、<strong>「出来事」だけではトラウマにならない</strong>という点です。
+        同じ事故、同じ虐待、同じいじめでも、その体験のされ方と、
+        その後の影響の継続によって、はじめてトラウマとなります。
+        だからこそ、表面的な出来事の重大さだけで判断はできません。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03: 広がり ============ -->
+<section id="prevalence" class="reveal">
+  <div class="container">
+    <div class="section-label"><span class="section-num">03</span>広がり</div>
+    <h2 class="section-title serif">数字が示す、トラウマの偏在</h2>
+    <p class="section-deck">
+      1998年、Felittiらは米国カイザー・パーマネンテの患者を対象に
+      <strong>ACE（小児期逆境体験）研究</strong> を実施しました<sup class="cite-sup">[2]</sup>。
+      質問票送付者13,494名中9,508名（70.5%）が回答、最終的に8,056名が解析対象となりました。
+      この研究はトラウマと健康の関係を定量的に示し、TIC普及の土台になりました。
+    </p>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-num">52<span class="pct">%</span></div>
+        <div class="stat-label">解析対象者の約半数が、少なくとも1つのACEを経験していた</div>
+        <div class="stat-source">Felitti et al., 1998 (解析n=8,056)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6.2<span class="pct">%</span></div>
+        <div class="stat-label">4つ以上のACEを経験。健康リスクが用量反応的に増加</div>
+        <div class="stat-source">Felitti et al., 1998</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1.5<span class="pct">×</span></div>
+        <div class="stat-label">障害のある成人は、暴力被害に遭うリスクが一般の約1.5倍（オッズ比1.50）</div>
+        <div class="stat-source">Hughes et al., 2012, Lancet</div>
+      </div>
+    </div>
+
+    <div class="card-warning">
+      <div class="card-label">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        この数字をどう読むか
+      </div>
+      <p style="font-size:14px; line-height:1.9; color:var(--ink-soft);">
+        ACE研究は画期的ですが、サンプルは中産階級の白人が中心で、後ろ向き自己報告に依存します。
+        また「ACEスコアが高い＝必ず病む」ではなく、回復要因（保護的人間関係など）も同等に重要です。
+        数字をもって個人をスコアリングする使い方は、研究者自身も警告しています。
+        Hughes 2012のメタアナリシスでは、精神疾患のある成人で暴力被害オッズ比3.86が示されていますが、95%信頼区間は0.91–16.43と非常に広く、<strong>統計的有意性は確立していません</strong>。研究によるばらつきが大きい点に注意が必要です。
+      </p>
+    </div>
+
+    <div class="prose">
+      <p>
+        就労移行支援の現場に置き換えれば、これは
+        <strong>「目の前の利用者の多くは、何らかのトラウマ的経験を背負っている可能性が十分にある」</strong>
+        ということです。
+        知的・発達・精神障害のある人は、被虐待経験率がさらに高いという疫学データもあります<sup class="cite-sup">[3]</sup>。
+        TICはこの事実から出発します。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04: 身体への影響 ============ -->
+<section id="body" class="reveal" style="background: var(--paper-warm);">
+  <div class="container">
+    <div class="section-label"><span class="section-num">04</span>身体への影響</div>
+    <h2 class="section-title serif">トラウマは、まず身体に住む</h2>
+    <p class="section-deck">
+      トラウマの影響を理解する有力な概念のひとつが、Daniel Siegelの提唱した
+      <strong>「耐性の窓（Window of Tolerance）」</strong>です<sup class="cite-sup">[4]</sup>。
+      これは、人が「考え、感じ、関わる」ことができる神経系の状態の幅を表します。
+    </p>
+
+    <div class="wot">
+      <div class="wot-title serif">耐性の窓 ─ 3つの神経系の状態</div>
+      <div class="wot-sub">タップして詳細を展開</div>
+
+      <div class="wot-zone hyper" onclick="toggleZone(this)">
+        <div class="wot-zone-label serif">
+          <span>過覚醒（hyperarousal）── 戦う・逃げる</span>
+          <span class="arrow">+</span>
+        </div>
+        <div class="wot-zone-desc">心拍上昇、過警戒、怒り、不安、攻撃性、パニック</div>
+        <div class="wot-detail"><div class="wot-detail-inner">
+          危険信号に対して交感神経系が活性化した状態。<strong>「キレやすい」「衝動的」</strong>と見られる行動は、
+          本人が悪意でやっているのではなく、神経系がこの状態に固定化している可能性がある。
+          現場でできるのは、刺激を減らし、安全を確保し、本人が落ち着くのを待つこと。
+        </div></div>
+      </div>
+
+      <div class="wot-zone window" onclick="toggleZone(this)">
+        <div class="wot-zone-label serif">
+          <span>耐性の窓 ── 考え、感じ、関われる状態</span>
+          <span class="arrow">+</span>
+        </div>
+        <div class="wot-zone-desc">学習・対話・選択・記憶の形成が可能な「最適域」</div>
+        <div class="wot-detail"><div class="wot-detail-inner">
+          支援が「届く」のはこの状態のときだけ。
+          指導も、就労準備のプログラムも、面談も、利用者がこの窓の中にいなければ
+          <strong>言葉が頭を素通りする</strong>。窓の中に居続けてもらうことが、支援の前提条件になる。
+        </div></div>
+      </div>
+
+      <div class="wot-zone hypo" onclick="toggleZone(this)">
+        <div class="wot-zone-label serif">
+          <span>低覚醒（hypoarousal）── 凍りつく・諦める</span>
+          <span class="arrow">+</span>
+        </div>
+        <div class="wot-zone-desc">無気力、ぼんやり、解離、しゃべらない、感情が動かない</div>
+        <div class="wot-detail"><div class="wot-detail-inner">
+          副交感神経系が過剰に作動し、シャットダウンした状態。<strong>「やる気がない」「無口」</strong>と
+          見られがちな状態が、実は「凍りつき」反応かもしれない。
+          鼓舞や叱責は逆効果。安全感の積み重ねによって、ゆっくり窓の中へ戻ってもらう必要がある。
+        </div></div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        重要なのは、これが <strong>「性格の問題」でも「やる気の問題」でもない</strong> という点です。
+        過去のトラウマによって耐性の窓が狭くなっていると、
+        些細な刺激でも過覚醒や低覚醒に振り切れてしまう。
+        本人もコントロールできていない。これが「身体に住むトラウマ」の意味です。
+      </p>
+    </div>
+
+    <div class="card-warning">
+      <div class="card-label">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        理論の限界も知っておく
+      </div>
+      <p style="font-size:14px; line-height:1.9; color:var(--ink-soft);">
+        「耐性の窓」と関連して語られる <strong>ポリヴェーガル理論（Porges）</strong> は、
+        TIC界隈で広く引用されていますが、生理学者からは実証面で強い批判があります<sup class="cite-sup">[5]</sup>。
+        「理論」というよりも、臨床現場で有用な <strong>メタファー</strong> として用いるのが穏当です。
+        現場で「ポリヴェーガル的に〜」と語る必要はありません。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05: パラダイム ============ -->
+<section id="shift" class="reveal">
+  <div class="container">
+    <div class="section-label"><span class="section-num">05</span>パラダイムシフト</div>
+    <h2 class="section-title serif">問いを、ひとつ変える</h2>
+    <p class="section-deck">
+      TIC運動の哲学は、オプラ・ウィンフリーと精神科医Bruce Perryの共著
+      『What Happened to You?』<sup class="cite-sup">[6]</sup>で象徴的に表現されました。
+      ただし「何が悪いのか」から「何が起こったのか」への問いの転換そのものは、
+      Sandra Bloomらの「サンクチュアリ・モデル」をはじめ、それ以前から提唱されてきました。
+      問いを変えるだけで、見える景色が変わります。
+    </p>
+
+    <div class="shift">
+      <div class="shift-side before">
+        <div class="shift-label">これまで</div>
+        <div class="shift-q serif">あなたの何が<br>悪いのですか？</div>
+      </div>
+      <div class="shift-arrow serif">→</div>
+      <div class="shift-side after">
+        <div class="shift-label">TICの問い</div>
+        <div class="shift-q serif">あなたに何が<br>起こったのですか？</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        前者は <strong>個人の病理</strong> を問う。後者は <strong>環境と歴史</strong> を問う。
+        この転換は、本人を免責するものでも、責任を曖昧にするものでもありません。
+        行動の<strong>機能</strong>を理解しようとする姿勢です。
+        「なぜこの人は今、こういう行動をとっているのか」を、
+        個人の中ではなく <strong>環境との相互作用</strong> の中に探していく。
+      </p>
+    </div>
+
+    <div class="card-warning">
+      <div class="card-label">行き過ぎへの注意</div>
+      <p style="font-size:14px; line-height:1.9; color:var(--ink-soft);">
+        この問いを <strong>決定論</strong> として使うと、別の問題が起きます。
+        「過去にトラウマがあったから何をしても仕方ない」となれば、本人の主体性を奪います。
+        TICは「過去の説明」ではなく、<strong>「いま安全な環境を作る」</strong>ための実践です。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06: 4Rs ============ -->
+<section id="four-r" class="reveal" style="background: var(--paper-warm);">
+  <div class="container">
+    <div class="section-label"><span class="section-num">06</span>定義</div>
+    <h2 class="section-title serif">TICとは何か ─ 4つのR</h2>
+    <p class="section-deck">
+      SAMHSAは「トラウマインフォームド」な組織・実践を、
+      <strong>4つの動詞（4 R's）</strong> で定義しています<sup class="cite-sup">[1]</sup>。
+      これがTICの最小限の骨格です。
+    </p>
+
+    <div class="four-r">
+      <div class="r-box">
+        <div class="r-letter serif">R</div>
+        <div class="r-en">REALIZE</div>
+        <div class="r-jp serif">理解する</div>
+        <div class="r-desc">
+          トラウマが個人・家族・地域・組織にどう広く影響しうるかを、
+          スタッフ全員が理解している。
+        </div>
+      </div>
+      <div class="r-box">
+        <div class="r-letter serif">R</div>
+        <div class="r-en">RECOGNIZE</div>
+        <div class="r-jp serif">気づく</div>
+        <div class="r-desc">
+          利用者・家族・スタッフに現れるトラウマの兆候とサインに気づける。
+          自分自身の反応にも気づける。
+        </div>
+      </div>
+      <div class="r-box">
+        <div class="r-letter serif">R</div>
+        <div class="r-en">RESPOND</div>
+        <div class="r-jp serif">対応する</div>
+        <div class="r-desc">
+          トラウマの知識を、組織の方針・手順・実践に統合する。
+          個人技ではなく <strong>システム</strong> として対応する。
+        </div>
+      </div>
+      <div class="r-box">
+        <div class="r-letter serif">R</div>
+        <div class="r-en">RESIST</div>
+        <div class="r-jp serif">再傷つきを<br>防ぐ</div>
+        <div class="r-desc">
+          支援の場そのものが、新たな傷つきを生まないように積極的に防ぐ。
+          これがTICの本丸。
+        </div>
+      </div>
+    </div>
+
+    <div class="pullquote">
+      <p class="pullquote-text serif">
+        TICは新しい技法ではなく、<br>
+        既存の支援を <em>「再傷つきを生まない形」</em> に<br>
+        再設計するための枠組みである。
+      </p>
+      <div class="pullquote-attrib">── SAMHSA (2014) を要約</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07: 6 principles ============ -->
+<section id="principles" class="reveal">
+  <div class="container">
+    <div class="section-label"><span class="section-num">07</span>原則</div>
+    <h2 class="section-title serif">6つの原則 ── KBC現場での具体</h2>
+    <p class="section-deck">
+      SAMHSAは4つのRを実装するために、<strong>6つの実践原則</strong> を提示しています<sup class="cite-sup">[1]</sup>。
+      ここでは各原則を、就労移行支援の文脈に翻訳して示します。
+      各項目をタップすると、現場での具体例が展開します。
+    </p>
+
+    <div class="principles">
+
+      <div class="principle" onclick="togglePrinciple(this)">
+        <div class="principle-header">
+          <div class="principle-num serif">i.</div>
+          <div class="principle-title-block">
+            <div class="principle-jp serif">安全</div>
+            <div class="principle-en">SAFETY</div>
+          </div>
+          <div class="principle-toggle">+</div>
+        </div>
+        <div class="principle-body"><div class="principle-body-inner">
+          <div class="principle-core">
+            利用者とスタッフが、<strong>身体的・心理的</strong>に安全と感じられること。
+            ここでの「安全」は、客観的な無危険ではなく <strong>主観的な安全感</strong>。
+            「安全だ」と感じてもらえる工夫を、環境・関係・運用の三層で積み上げる。
+          </div>
+          <div class="principle-practice">
+            <div class="principle-practice-label">現場の具体</div>
+            <div class="principle-practice-text">
+              事業所の動線・照明・座席配置を見直す／面談室のドアは閉めるか開けるか本人に選んでもらう／
+              スタッフ間の私語や笑い声が利用者に「自分の話か」と誤解されない配慮／
+              叱責口調・大声・不意な接触を避ける／非常口の場所を伝えておく。
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="principle" onclick="togglePrinciple(this)">
+        <div class="principle-header">
+          <div class="principle-num serif">ii.</div>
+          <div class="principle-title-block">
+            <div class="principle-jp serif">信頼性と透明性</div>
+            <div class="principle-en">TRUSTWORTHINESS &amp; TRANSPARENCY</div>
+          </div>
+          <div class="principle-toggle">+</div>
+        </div>
+        <div class="principle-body"><div class="principle-body-inner">
+          <div class="principle-core">
+            運営の判断・ルール・意図を <strong>明示し、一貫させる</strong>。
+            「なぜそうするのか」を説明する。約束を守る。約束できないことは約束しない。
+            トラウマ経験者は、説明されない決定や急な変更に強い不安を感じやすい。
+          </div>
+          <div class="principle-practice">
+            <div class="principle-practice-label">現場の具体</div>
+            <div class="principle-practice-text">
+              プログラム変更は理由とともに事前告知／面談の目的・所要時間・記録の取り扱いを最初に説明／
+              「次はこうします」と一手先を予告する／できないことは「できません」と伝える／
+              評価の基準を曖昧にしない。
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="principle" onclick="togglePrinciple(this)">
+        <div class="principle-header">
+          <div class="principle-num serif">iii.</div>
+          <div class="principle-title-block">
+            <div class="principle-jp serif">ピアサポート</div>
+            <div class="principle-en">PEER SUPPORT</div>
+          </div>
+          <div class="principle-toggle">+</div>
+        </div>
+        <div class="principle-body"><div class="principle-body-inner">
+          <div class="principle-core">
+            同じような経験をした人どうしのつながりが、回復に独自の価値を持つ。
+            専門家からの支援ではアクセスできない安心と希望を生む。
+            就労移行支援なら、同じ就活フェーズの仲間との対話、卒業生の経験談などが該当。
+          </div>
+          <div class="principle-practice">
+            <div class="principle-practice-label">現場の具体</div>
+            <div class="principle-practice-text">
+              卒業生による就労体験報告会／グループプログラムでの相互発言の促し方を工夫／
+              「先輩利用者」の発言機会を構造化／ただし「ピア」を装った押し付けや、
+              比較によるプレッシャーにならないよう運用に注意。
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="principle" onclick="togglePrinciple(this)">
+        <div class="principle-header">
+          <div class="principle-num serif">iv.</div>
+          <div class="principle-title-block">
+            <div class="principle-jp serif">協働と相互性</div>
+            <div class="principle-en">COLLABORATION &amp; MUTUALITY</div>
+          </div>
+          <div class="principle-toggle">+</div>
+        </div>
+        <div class="principle-body"><div class="principle-body-inner">
+          <div class="principle-core">
+            支援者と利用者の間にある <strong>力の差を意識的に小さくする</strong>。
+            「支援する人／される人」の構図ではなく、共に考えるパートナーとして振る舞う。
+            これは媚びることではなく、決定権を本人に戻していく態度。
+          </div>
+          <div class="principle-practice">
+            <div class="principle-practice-label">現場の具体</div>
+            <div class="principle-practice-text">
+              個別支援計画は本人と一緒に作る（書いて見せて確認する）／
+              「やる／やらない」ではなく「どうやるか」を一緒に検討／
+              スタッフが先に結論を言わない／利用者の言葉をそのまま記録に残す。
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="principle" onclick="togglePrinciple(this)">
+        <div class="principle-header">
+          <div class="principle-num serif">v.</div>
+          <div class="principle-title-block">
+            <div class="principle-jp serif">エンパワメント・声・選択</div>
+            <div class="principle-en">EMPOWERMENT, VOICE &amp; CHOICE</div>
+          </div>
+          <div class="principle-toggle">+</div>
+        </div>
+        <div class="principle-body"><div class="principle-body-inner">
+          <div class="principle-core">
+            トラウマは <strong>「選べなかった経験」</strong> として記憶される。
+            だから回復には「選べる」体験の積み重ねが必要。
+            小さな選択を増やし、本人が自分の人生の主役だと感じられる仕掛けを作る。
+          </div>
+          <div class="principle-practice">
+            <div class="principle-practice-label">現場の具体</div>
+            <div class="principle-practice-text">
+              「今日のプログラムは出る／出ない／一部だけ」を選択肢として明示／
+              面談の長さや席を本人に選んでもらう／支援計画の目標を本人の言葉で書く／
+              指示形の言葉を質問形に置き換える（「やりましょう」→「やってみますか？」）。
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="principle" onclick="togglePrinciple(this)">
+        <div class="principle-header">
+          <div class="principle-num serif">vi.</div>
+          <div class="principle-title-block">
+            <div class="principle-jp serif">文化・歴史・ジェンダー</div>
+            <div class="principle-en">CULTURAL, HISTORICAL &amp; GENDER ISSUES</div>
+          </div>
+          <div class="principle-toggle">+</div>
+        </div>
+        <div class="principle-body"><div class="principle-body-inner">
+          <div class="principle-core">
+            トラウマは個人だけのものではない。<strong>属性に基づく差別、世代を超えて受け継がれる傷</strong>もある。
+            性別、性的指向、国籍、障害、職業歴などが、本人の経験を形作っていることを認識する。
+            「みんな同じ」アプローチは、しばしば再傷つきになる。
+          </div>
+          <div class="principle-practice">
+            <div class="principle-practice-label">現場の具体</div>
+            <div class="principle-practice-text">
+              性別を当然視した呼びかけや配席を見直す／LGBTQ+利用者への配慮を制度化／
+              障害カミングアウト歴・職場でのハラスメント経験を聞く姿勢／
+              「努力すれば報われる」式の励ましが、ある属性の人には抑圧として届くことを知る。
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+    </div>
+
+    <div class="card-quiet">
+      <div class="card-label">原則を読むときの注意</div>
+      <p style="font-size:14px; line-height:1.9; color:var(--ink-soft);">
+        6原則は <strong>チェックリスト</strong> ではなく、組織全体の <strong>姿勢の方向</strong> を示すコンパスです。
+        個々のスタッフが個別に頑張るのではなく、運営方針・記録様式・面談手順・
+        会議体に染み込ませて、はじめてTICになります。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08: 境界線 ============ -->
+<section id="boundary" class="reveal" style="background: var(--paper-warm);">
+  <div class="container">
+    <div class="section-label"><span class="section-num">08</span>境界線</div>
+    <h2 class="section-title serif">TICがやること／やってはいけないこと</h2>
+    <p class="section-deck">
+      これは最も誤解されやすい点です。
+      <strong>TICはトラウマ治療ではありません</strong>。両者を混同すると、
+      支援が善意のまま危険になります。
+    </p>
+
+    <div class="compare">
+      <div class="compare-col do">
+        <div class="compare-head serif">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          TICはやる
+        </div>
+        <div class="compare-sub">就労移行支援スタッフの守備範囲</div>
+        <ul class="compare-list">
+          <li>トラウマが広く存在することを前提に支援を設計する</li>
+          <li>環境と関係を「再傷つきにくい」状態に保つ</li>
+          <li>本人の安全感を最優先する</li>
+          <li>選択肢を提示し、決定権を本人に戻していく</li>
+          <li>必要に応じて、適切な専門機関に <strong>つなぐ</strong></li>
+          <li>スタッフ自身の二次受傷ケアを組織で行う</li>
+        </ul>
+      </div>
+      <div class="compare-col dont">
+        <div class="compare-head serif">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          TICはやらない
+        </div>
+        <div class="compare-sub">これは <strong>専門治療</strong> の領域</div>
+        <ul class="compare-list">
+          <li>トラウマ体験の詳細を聞き出して処理する</li>
+          <li>フラッシュバックを「向き合って克服しよう」と促す</li>
+          <li>素人判断で「あなたはPTSDですね」と告げる</li>
+          <li>EMDR・TF-CBT・持続エクスポージャーなどの治療技法</li>
+          <li>専門医療につなぐべきケースを抱え込む</li>
+          <li>スタッフが個人の判断で「治そう」とする</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        例えるなら、<strong>標準予防策（universal precautions）</strong>と治療の関係に近い。
+        医療従事者は患者全員に対し、感染の可能性を前提に手袋・手洗いをします。
+        これは治療ではなく、傷つけないための前提条件です。
+        TICもこれに似た性質を持ちます。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09: 現場シナリオ ============ -->
+<section id="field" class="reveal">
+  <div class="container">
+    <div class="section-label"><span class="section-num">09</span>現場で</div>
+    <h2 class="section-title serif">よくある場面 ─ TICの目で見直す</h2>
+    <p class="section-deck">
+      理論ではなく、明日の現場で使える視点として並べます。
+      あくまで<strong>仮説の引き出し</strong>であり、絶対の正解ではありません。
+    </p>
+
+    <div class="scenarios">
+
+      <div class="scenario">
+        <div class="scenario-q">
+          <div class="scenario-q-num serif">i.</div>
+          <div class="scenario-q-text serif">面談中、利用者が突然黙り込み、視線を合わせなくなった</div>
+        </div>
+        <div class="scenario-a">
+          <div class="scenario-a-label">TICの視点</div>
+          <p class="scenario-a-text">
+            「拒否」や「やる気のなさ」ではなく、<strong>低覚醒（凍りつき）</strong> 状態に入っている可能性を疑う。
+            この瞬間にさらに質問を重ねたり、励ましたりすると、解離を深める。
+          </p>
+          <p class="scenario-a-text">
+            まずは <strong>話題を変える、休憩を提案する、お茶を出す</strong> など、安全な「現在」に戻ってもらう工夫を。
+            「今日はここまでにしましょうか」と<strong>引き返す選択肢</strong>を提示することも、立派な支援。
+          </p>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-q">
+          <div class="scenario-q-num serif">ii.</div>
+          <div class="scenario-q-text serif">グループプログラムで他の利用者の発言を聞いた直後、別の利用者が急に部屋を出ていった</div>
+        </div>
+        <div class="scenario-a">
+          <div class="scenario-a-label">TICの視点</div>
+          <p class="scenario-a-text">
+            発言の内容が <strong>トリガー</strong>になった可能性がある。
+            職場でのいじめ、家族関係、過去の失敗体験──聞いていて辛くなる話題は人それぞれ。
+            本人にも事前に予測できないことが多い。
+          </p>
+          <p class="scenario-a-text">
+            追いかけて理由を問い詰めない。<strong>「戻ってこなくても大丈夫」と伝える</strong>。
+            落ち着いた後に、本人が話したければ話せる場を用意する。
+            プログラム運営側は、扱う話題の前に <strong>退室自由</strong> を明示しておく。
+          </p>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-q">
+          <div class="scenario-q-num serif">iii.</div>
+          <div class="scenario-q-text serif">通所が安定していた利用者が、ある時期から急に来なくなった</div>
+        </div>
+        <div class="scenario-a">
+          <div class="scenario-a-label">TICの視点</div>
+          <p class="scenario-a-text">
+            「サボり」ではなく、<strong>その時期に何かが起きた</strong>と仮定する。
+            季節（虐待が起きた季節と重なる）、ニュース（社会的出来事の報道がトリガーになる）、
+            事業所内の出来事（スタッフ交代、新しい利用者の入所など）。
+          </p>
+          <p class="scenario-a-text">
+            連絡する際の言葉は「<strong>来てください</strong>」より「<strong>体調はいかがですか</strong>」。
+            来ないことを責めない。<strong>「いつでも戻ってきていい場所」</strong>として連絡を細く長く保つ。
+          </p>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-q">
+          <div class="scenario-q-num serif">iv.</div>
+          <div class="scenario-q-text serif">就職活動が進む中、ある利用者が「やっぱり働きたくない」と急に言い出した</div>
+        </div>
+        <div class="scenario-a">
+          <div class="scenario-a-label">TICの視点</div>
+          <p class="scenario-a-text">
+            就労移行のゴールに近づくほど、過去の <strong>働いていた時のしんどさ</strong> がフラッシュバックする利用者は少なくない。
+            「逃げ」「甘え」ではなく、神経系が <strong>「あの時の状況に近づいている」</strong> と警報を鳴らしている。
+          </p>
+          <p class="scenario-a-text">
+            就職を急かさず、<strong>「働かない」も含めて選択肢</strong> として並べる。
+            その上で「<em>もし働くとしたら、何があったら少し違って感じられそうか</em>」を一緒に考える。
+            選び直せる感覚を取り戻すことが、TIC的なエンパワメント。
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10: スタッフのケア ============ -->
+<section id="staff-care" class="reveal" style="background: var(--paper-warm);">
+  <div class="container">
+    <div class="section-label"><span class="section-num">10</span>スタッフへ</div>
+    <h2 class="section-title serif">支援者は、削れる</h2>
+    <p class="section-deck">
+      利用者のトラウマに繰り返し触れる仕事は、<strong>二次受傷（secondary traumatic stress）</strong>と
+      <strong>共感疲労（compassion fatigue）</strong>のリスクを伴います<sup class="cite-sup">[7]</sup>。
+      これはあなたが弱いからではなく、人の構造上そうなります。
+    </p>
+
+    <div class="card">
+      <h3 class="serif" style="font-size:18px; font-weight:700; margin-bottom:18px; color:var(--ink);">起きうること</h3>
+      <p style="font-size:14.5px; line-height:1.95; color:var(--ink-soft); margin-bottom:14px;">
+        ・帰宅後も利用者のことが頭から離れない<br>
+        ・自分が無力に感じる、または逆に「自分しかいない」と抱え込む<br>
+        ・身体症状（不眠、頭痛、消化器症状）<br>
+        ・利用者に対する感情の摩耗、皮肉な見方の増加<br>
+        ・「私生活でも警戒モードが切れない」感覚
+      </p>
+      <p style="font-size:14.5px; line-height:1.95; color:var(--ink-soft);">
+        これらは <strong>個人の弱さの徴候ではなく、仕事の構造的なリスクの徴候</strong> です。
+        早期に名前をつけて認識することが、回復可能性を保ちます。
+      </p>
+    </div>
+
+    <div class="card-quiet">
+      <div class="card-label">組織側がやるべきこと</div>
+      <p style="font-size:14px; line-height:1.9; color:var(--ink-soft);">
+        スタッフのセルフケアを「自己責任」にすると、TICは破綻します。
+        スーパービジョン、定期的なケース検討、業務量の調整、休暇の取りやすさ、
+        困難ケースの抱え込み防止──これらは <strong>組織の責任</strong> です。
+        TICは「利用者にやさしく」と同時に「<strong>スタッフにやさしく</strong>」を必要とします。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11: 批判的検討 ============ -->
+<section id="critique" class="reveal">
+  <div class="container">
+    <div class="section-label"><span class="section-num">11</span>批判的検討</div>
+    <h2 class="section-title serif">TICの限界と、引き受けるべき疑問</h2>
+    <p class="section-deck">
+      TICは魔法の処方箋ではありません。導入を進めるうえで、研究と現場の双方から
+      指摘されている <strong>限界と批判</strong> を直視しておくことが、結果的にTICを長持ちさせます。
+    </p>
+
+    <div class="critique-grid">
+
+      <div class="critique">
+        <div class="critique-num serif">Critique  /  i</div>
+        <div class="critique-title serif">用語のバズワード化と希薄化</div>
+        <div class="critique-text">
+          「トラウマインフォームド」が流行語化し、看板を掲げただけで実態が伴わない組織が増えている、
+          という批判が早くから指摘されてきた。実装の中身を測る基準がないまま広がるリスク。
+        </div>
+        <div class="critique-source">Berliner & Kolko (2016), Child Maltreatment</div>
+      </div>
+
+      <div class="critique">
+        <div class="critique-num serif">Critique  /  ii</div>
+        <div class="critique-title serif">利用者アウトカムへの効果は限定的</div>
+        <div class="critique-text">
+          TIC研修がスタッフの知識・態度を改善することは複数研究で示されているが、
+          <strong>利用者の症状改善や転帰</strong> への効果を頑健に示した研究は依然として少ない、
+          と複数のレビュー論文が指摘している。
+        </div>
+        <div class="critique-source">Sweeney et al. (2018), BJPsych Advances</div>
+      </div>
+
+      <div class="critique">
+        <div class="critique-num serif">Critique  /  iii</div>
+        <div class="critique-title serif">擬似科学的説明への接近</div>
+        <div class="critique-text">
+          ポリヴェーガル理論や一部の神経科学的説明は、TIC教材で過剰に断定的に語られがち。
+          現場での説明には便利だが、<strong>「科学的に証明された」と言い切るのは現状の証拠を超える</strong>。
+          メタファーとしての慎重な使用が望ましい。
+        </div>
+        <div class="critique-source">Grossman (2023), Biological Psychology</div>
+      </div>
+
+      <div class="critique">
+        <div class="critique-num serif">Critique  /  iv</div>
+        <div class="critique-title serif">通常の困難を病理化するリスク</div>
+        <div class="critique-text">
+          全ての困難な体験を「トラウマ」と呼ぶことで、<strong>本来の臨床的なPTSDの重みが薄まる</strong>。
+          また、通常の悲嘆や挫折を医療化してしまい、人が本来持つレジリエンスを見落とす恐れがある。
+        </div>
+        <div class="critique-source">複数の批判的論評</div>
+      </div>
+
+      <div class="critique">
+        <div class="critique-num serif">Critique  /  v</div>
+        <div class="critique-title serif">個人主義への回収</div>
+        <div class="critique-text">
+          TICは本来、組織・制度・社会レベルの変革を含む枠組みだが、
+          日本の現場では <strong>「スタッフ個人がやさしくする」</strong> 話に矮小化されがち。
+          貧困・差別・労働環境などの構造的トラウマ要因への目配りが必要。
+        </div>
+        <div class="critique-source">Bowen & Murshid (2016) を参照</div>
+      </div>
+
+      <div class="critique">
+        <div class="critique-num serif">Critique  /  vi</div>
+        <div class="critique-title serif">それでも、やる価値はあるのか</div>
+        <div class="critique-text">
+          これらの批判があっても、TICが提起する <strong>「再傷つきを生まない支援」</strong> という問いそのものは、
+          支援職にとって避けて通れない。批判を踏まえつつ <strong>等身大で実装する</strong> ── これが現実的な答え。
+        </div>
+        <div class="critique-source">本資料の筆者見解</div>
+      </div>
+
+    </div>
+
+    <div class="deco-rule"><div class="deco-rule-mark"></div></div>
+
+    <div class="pullquote">
+      <p class="pullquote-text serif">
+        TICを <em>絶対に正しい教義</em> として受け入れるのではなく、<br>
+        現場で <em>使い倒し、修正し、批判する</em> ことが、<br>
+        最も誠実な実装である。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ References ============ -->
+<section id="refs" class="refs reveal">
+  <div class="container">
+    <div class="section-label"><span class="section-num">12</span>参考文献</div>
+    <h2 class="section-title serif">出典とさらに学ぶための資料</h2>
+    <p class="section-deck">
+      本資料は以下の文献に基づいて作成しました。リンクが付いている項目はクリックで該当ページに移動できます。
+    </p>
+
+    <ol class="refs-list">
+      <li>
+        <span class="ref-title">SAMHSA (2014).</span>
+        <em class="ref-meta">SAMHSA's Concept of Trauma and Guidance for a Trauma-Informed Approach.</em>
+        HHS Publication No. (SMA) 14-4884. Rockville, MD: Substance Abuse and Mental Health Services Administration.
+        <a href="https://store.samhsa.gov/product/SAMHSA-s-Concept-of-Trauma-and-Guidance-for-a-Trauma-Informed-Approach/SMA14-4884" target="_blank" rel="noopener">SAMHSA Store</a>
+      </li>
+      <li>
+        <span class="ref-title">Felitti, V. J., Anda, R. F., Nordenberg, D., Williamson, D. F., et al. (1998).</span>
+        Relationship of childhood abuse and household dysfunction to many of the leading causes of death in adults.
+        <em class="ref-meta">American Journal of Preventive Medicine, 14(4), 245–258.</em>
+        <a href="https://doi.org/10.1016/S0749-3797(98)00017-8" target="_blank" rel="noopener">doi:10.1016/S0749-3797(98)00017-8</a>
+      </li>
+      <li>
+        <span class="ref-title">Hughes, K., Bellis, M. A., Jones, L., Wood, S., et al. (2012).</span>
+        Prevalence and risk of violence against adults with disabilities: a systematic review and meta-analysis of observational studies.
+        <em class="ref-meta">The Lancet, 379(9826), 1621–1629.</em>
+        <a href="https://doi.org/10.1016/S0140-6736(11)61851-5" target="_blank" rel="noopener">doi:10.1016/S0140-6736(11)61851-5</a>
+      </li>
+      <li>
+        <span class="ref-title">Siegel, D. J. (1999).</span>
+        <em class="ref-meta">The Developing Mind: Toward a Neurobiology of Interpersonal Experience.</em>
+        New York: Guilford Press.（「耐性の窓」概念の初出）
+      </li>
+      <li>
+        <span class="ref-title">Grossman, P. (2023).</span>
+        Fundamental challenges and likely refutations of the five basic premises of the polyvagal theory.
+        <em class="ref-meta">Biological Psychology, 180, 108589.</em>
+        <a href="https://doi.org/10.1016/j.biopsycho.2023.108589" target="_blank" rel="noopener">doi:10.1016/j.biopsycho.2023.108589</a>
+      </li>
+      <li>
+        <span class="ref-title">Bloom, S. L. (1997).</span>
+        <em class="ref-meta">Creating Sanctuary: Toward the Evolution of Sane Societies.</em>
+        Routledge.（「サンクチュアリ・モデル」の原典、組織レベルのTIC実装の先駆）
+      </li>
+      <li>
+        <span class="ref-title">Winfrey, O., &amp; Perry, B. D. (2021).</span>
+        <em class="ref-meta">What Happened to You? Conversations on Trauma, Resilience, and Healing.</em>
+        Flatiron Books.（現時点で日本語訳は刊行されていない可能性あり。原著で参照を推奨）
+      </li>
+      <li>
+        <span class="ref-title">Sweeney, A., Filson, B., Kennedy, A., Collinson, L., &amp; Gillard, S. (2018).</span>
+        A paradigm shift: relationships in trauma-informed mental health services.
+        <em class="ref-meta">BJPsych Advances, 24(5), 319–333.</em>
+        <a href="https://doi.org/10.1192/bja.2018.29" target="_blank" rel="noopener">doi:10.1192/bja.2018.29</a>
+      </li>
+      <li>
+        <span class="ref-title">Berliner, L., &amp; Kolko, D. J. (2016).</span>
+        Trauma informed care: A commentary and critique.
+        <em class="ref-meta">Child Maltreatment, 21(2), 168–172.</em>
+        <a href="https://doi.org/10.1177/1077559516643785" target="_blank" rel="noopener">doi:10.1177/1077559516643785</a>
+      </li>
+      <li>
+        <span class="ref-title">Bowen, E. A., &amp; Murshid, N. S. (2016).</span>
+        Trauma-Informed Social Policy: A Conceptual Framework for Policy Analysis and Advocacy.
+        <em class="ref-meta">American Journal of Public Health, 106(2), 223–229.</em>
+        <a href="https://doi.org/10.2105/AJPH.2015.302970" target="_blank" rel="noopener">doi:10.2105/AJPH.2015.302970</a>
+      </li>
+      <li>
+        <span class="ref-title">van der Kolk, B. A. (2014).</span>
+        <em class="ref-meta">The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma.</em>
+        New York: Viking.（邦訳『身体はトラウマを記録する』紀伊國屋書店, 2016）
+      </li>
+      <li>
+        <span class="ref-title">亀岡智美 (2020).</span>
+        <em class="ref-meta">『子ども虐待とトラウマケア ── 再トラウマ化を防ぐトラウマインフォームドケア』.</em>
+        金剛出版.（日本語で読める実践書）
+      </li>
+      <li>
+        <span class="ref-title">大阪教育大学・大阪府 ほか.</span>
+        トラウマインフォームドケア関連の自治体・研究機関の公開資料も、現場研修の参考になります。
+        <a href="https://www.ncnp.go.jp/nimh/" target="_blank" rel="noopener">国立精神・神経医療研究センター精神保健研究所</a>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ Footer ============ -->
+<footer class="footer">
+  <div class="container">
+    <svg class="footer-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 2 L4 7 L4 13 C4 18 8 21 12 22 C16 21 20 18 20 13 L20 7 Z"/>
+      <path d="M12 8 L12 14 M9 11 L15 11" stroke-width="1.2"/>
+    </svg>
+    <div class="footer-name serif">岡村雄一郎</div>
+  </div>
+</footer>
+
+<script>
+// Progress bar
+const progressBar = document.getElementById('progressBar');
+function updateProgress() {
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+  progressBar.style.width = (scrolled * 100) + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+updateProgress();
+
+// Toggle Window of Tolerance zones
+function toggleZone(el) {
+  el.classList.toggle('open');
+}
+
+// Toggle 6 principles
+function togglePrinciple(el) {
+  el.classList.toggle('open');
+}
+
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -80px 0px' });
+revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
